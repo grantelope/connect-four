@@ -1,4 +1,4 @@
-import { TPoint } from "../types";
+import { TPoint } from '../types';
 
 type TComparison = TPoint | undefined;
 
@@ -7,8 +7,12 @@ export default function validate(points: TPoint[], winningAmt: number) {
     const upToTheRightComparison = (prev: TPoint): TPoint | undefined => {
         const { x, y, person } = prev;
 
-        return points.find((point) => {
-            return point.x === x + 1 && point.y === y + 1 && point.person === person;
+        return points.find(point => {
+            return (
+                point.x === x + 1 &&
+                point.y === y + 1 &&
+                point.person === person
+            );
         });
     };
 
@@ -16,8 +20,10 @@ export default function validate(points: TPoint[], winningAmt: number) {
     const toTheRightComparison = (prev: TPoint): TComparison => {
         const { x, y, person } = prev;
 
-        return points.find((point) => {
-            return point.x === x + 1 && point.y === y && point.person === person;
+        return points.find(point => {
+            return (
+                point.x === x + 1 && point.y === y && point.person === person
+            );
         });
     };
 
@@ -25,8 +31,10 @@ export default function validate(points: TPoint[], winningAmt: number) {
     const upComparison = (prev: TPoint): TComparison => {
         const { x, y, person } = prev;
 
-        return points.find((point) => {
-            return point.x === x && point.y === y + 1 && point.person === person;
+        return points.find(point => {
+            return (
+                point.x === x && point.y === y + 1 && point.person === person
+            );
         });
     };
 
@@ -34,13 +42,20 @@ export default function validate(points: TPoint[], winningAmt: number) {
     const upToTheLeftComparison = (prev: TPoint): TComparison => {
         const { x, y, person } = prev;
 
-        return points.find((point) => {
-            return point.x === x - 1 && point.y === y + 1 && point.person === person;
+        return points.find(point => {
+            return (
+                point.x === x - 1 &&
+                point.y === y + 1 &&
+                point.person === person
+            );
         });
     };
 
     // walk all array members
-    function walkTheList(prev: TPoint, fn: (ob: TPoint) => TComparison): TPoint[] {
+    function walkTheList(
+        prev: TPoint,
+        fn: (ob: TPoint) => TComparison
+    ): TPoint[] {
         const next = fn(prev);
 
         if (next) {
@@ -66,13 +81,15 @@ export default function validate(points: TPoint[], winningAmt: number) {
                 upToTheRightComparison,
                 toTheRightComparison,
                 upToTheLeftComparison,
-                upComparison,
+                upComparison
             ]
-                .map((fn) =>
-                    points.map((point) => clearOutNonWinners(walkTheList(point, fn))),
+                .map(fn =>
+                    points.map(point =>
+                        clearOutNonWinners(walkTheList(point, fn))
+                    )
                 )
                 // flatten the array of array of matches
-                .flat(Infinity),
-        ),
+                .flat(Infinity)
+        )
     ];
 }

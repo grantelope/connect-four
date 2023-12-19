@@ -5,6 +5,7 @@ import { getColorByIndex, range, validate } from './libs';
 
 import Board from './board';
 import React from 'react';
+import { hexColor } from './config';
 
 const COLUMNS = 7;
 const ROWS = 6;
@@ -15,14 +16,14 @@ const rowsIndexes = range(0, ROWS + 1);
 
 function Game() {
     const [turn, setTurn] = React.useState<TColor>('red');
-    const [points, setPoints] = React.useState<TPoint[]>([])
+    const [points, setPoints] = React.useState<TPoint[]>([]);
 
     const winners = React.useMemo(() => {
         return validate(points, TO_WIN);
-    }, [points])
+    }, [points]);
 
     function nextTurn(): TColor {
-        return turn === 'red' ? 'yellow' : 'red'
+        return turn === 'red' ? 'yellow' : 'red';
     }
 
     function reset() {
@@ -36,11 +37,13 @@ function Game() {
             return;
         }
 
-        if (!getColorByIndex({
-            x: point.x,
-            y: point.y,
-            points
-        })) {
+        if (
+            !getColorByIndex({
+                x: point.x,
+                y: point.y,
+                points
+            })
+        ) {
             setPoints([...points, point]);
             setTurn(nextTurn());
         }
@@ -50,12 +53,17 @@ function Game() {
 
     return (
         <>
-            {!Boolean(winners.length) && (
-                <h1>{turn} Turn</h1>
-            )}
-            {Boolean(winners.length) && (
-                <h1>{winner} Wins!</h1>
-            )}
+            <div className="header">
+                {!Boolean(winners.length) && (
+                    <h1 style={{ color: hexColor[turn] }}>{turn} Turn </h1>
+                )}
+                {Boolean(winners.length) && (
+                    <h1 style={{ color: hexColor[winner] }}>{winner} Wins!</h1>
+                )}
+                <button onClick={reset} className="reset">
+                    reset game
+                </button>
+            </div>
             <Board
                 turn={turn}
                 onTakeTurn={onTakeTurn}
@@ -66,12 +74,12 @@ function Game() {
                 columnCount={COLUMNS}
                 rowCount={ROWS}
             />
-            <div style={{
-                paddingTop: '20px',
-                textAlign: 'center'
-            }}>
-                <button onClick={reset}>reset game</button>
-            </div>
+            <div
+                style={{
+                    paddingTop: '20px',
+                    textAlign: 'center'
+                }}
+            ></div>
         </>
     );
 }
