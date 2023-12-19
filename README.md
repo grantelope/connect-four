@@ -7,7 +7,7 @@ See PR https://github.com/grantelope/connect-four/pull/1 and https://github.com/
 
 
 # To do: 
-- Be responsive w/ media queries for CSS
+- ~Be responsive w/ media queries for CSS~ (introduced in https://github.com/grantelope/connect-four/tree/make-response-various-cleanup)
 - Make more beautiful
 - Write even more tests
 
