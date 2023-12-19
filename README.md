@@ -2,6 +2,12 @@
 
 A very simple connect four game.
 
-- To do: Be responsive w/ media queries for CSS
+# Latest:
+See PR https://github.com/grantelope/connect-four/pull/1 and https://github.com/grantelope/connect-four/tree/make-response-various-cleanup to see responsive design applied to the design.
+
+
+# To do: 
+- Be responsive w/ media queries for CSS
 - Make more beautiful
 - Write even more tests
+
