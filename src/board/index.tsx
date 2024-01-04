@@ -1,7 +1,6 @@
 import { TColor, TPoint } from '../types';
 
 import Circle from '../circle';
-import React from 'react';
 import { useBoardHooks } from './hooks';
 
 type BoardProps = {
@@ -26,7 +25,7 @@ export default function Board({ winners, rowCount, onTakeTurn, turn, points = []
 
     const columns = columnsIndexes.map(yIndex => {
         return rowsIndexes.map(xIndex => {
-            return <div className="box" onClick={() => onClick(xIndex, yIndex)}>
+            return <div key={`${xIndex}-${yIndex}`} className="box" onClick={() => onClick(xIndex, yIndex)}>
                 <Circle x={xIndex} y={yIndex} points={points} winners={winners} />
             </div>
         })

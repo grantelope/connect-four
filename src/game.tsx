@@ -5,6 +5,7 @@ import { getColorByIndex, range, validate } from './libs';
 
 import Board from './board';
 import React from 'react';
+import { hexColor } from './config';
 
 const COLUMNS = 7;
 const ROWS = 6;
@@ -50,12 +51,15 @@ function Game() {
 
     return (
         <>
-            {!Boolean(winners.length) && (
-                <h1>{turn} Turn</h1>
-            )}
-            {Boolean(winners.length) && (
-                <h1>{winner} Wins!</h1>
-            )}
+            <div className="header">
+                {!Boolean(winners.length) && (
+                    <h1 style={{ color: hexColor[turn] }}>{turn} Turn </h1>
+                )}
+                {Boolean(winners.length) && (
+                    <h1 style={{ color: hexColor[winner] }}>{winner} Wins!</h1>
+                )}
+                <button onClick={reset} className="reset">reset game</button>
+            </div>
             <Board
                 turn={turn}
                 onTakeTurn={onTakeTurn}
@@ -70,7 +74,7 @@ function Game() {
                 paddingTop: '20px',
                 textAlign: 'center'
             }}>
-                <button onClick={reset}>reset game</button>
+
             </div>
         </>
     );
